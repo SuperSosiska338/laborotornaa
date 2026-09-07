@@ -1,7 +1,6 @@
 import sys
 import math
 
-#(Ax**2)+(Bx) + С= 0
 
 def solve():
 
@@ -10,10 +9,14 @@ def solve():
     a = float(args[2])
     b = float(args[3])
     c = float(args[4])
+    if a > 10000 or a < -10000 or b > 10000 or b < -10000 or c > 10000 or c < -10000:
+        
+        print("fgf")
+        break
 
     D = (b**2) - (4*a*c)
 
-    if D > 0 and a !=0 and b != 0:
+    if D > 0 and a !=0 and b != 0 :
         x1 = (-b + D**(1/2))/(2*a)
         x2 = (-b - D**(1/2))/(2*a)
         print (x1)
