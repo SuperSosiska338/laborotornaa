@@ -4,9 +4,12 @@ import math
 #(Ax**2)+(Bx) + С= 0
 
 def solve():
-    a = 1
-    b = 4
-    c = 2
+
+    args = sys.argv
+
+    a = float(args[2])
+    b = float(args[3])
+    c = float(args[4])
 
     D = (b**2) - (4*a*c)
 
