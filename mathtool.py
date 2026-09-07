@@ -1,26 +1,39 @@
 import sys
 import math
 
-def quadratic():
+#(Ax**2)+(Bx) + С= 0
 
-    args = sys.argv
+def solve():
+    a = 2
+    b = 4
+    c = 2
 
-    a = float(args[1])
-    b = float(args[2])
-    c = float(args[3])
+    D = b**2 - 4*a*c
 
-    s1 = (-b + (b**2 - 4*a*c)**0.5)/(2*a) 
-    s2 = (-b - (b**2 - 4*a*c)**0.5)/(2*a) 
+    if D > 0:
+        x1 = (-b + D**(1/2))/(2*a)
+        x2 = (-b - D**(1/2))/(2*a)
+        print (x1)
+        print (x2)
+    elif D < 0:
+        print ("no")
+    else:
+        x = -b / (2*a)
+        print(x)
 
-    print("Ваши решения: ", s1, "и", s2)
+    
+
+    
 
 def print_help():
     print("pomogite pajalusta")
-    
+
 def main():
-    args_count = len(sys.argv) - 1
+    args = len(sys.argv) - 1
     
-    if args_count == 0 or sys.argv[1] == "--help":
+    if args == 0 or sys.argv[1] == "--help":
         print_help()
         sys.exit(0)
+    if sys.args[1] == "solve"
+
 main()
