@@ -61,7 +61,7 @@ def main():
                 x = -b / (2*a)
                 print(f"x = {x:.3f}")
                 print("Уравнение квадратное")
-    elif a == 0:
+    elif a == 0 and b !=0:
                 x = -c / b
                 print (f"x = {x:.3f}") 
                 print("Уравнение линейное")  
@@ -71,8 +71,9 @@ def main():
                 x = (-c/a)**(1/2)
                 print (f"x = {x:.3f}")
                 print("Уравнение квадратное")
-    elif b == 0 and a == 0:
-           print("ОШИБКА: это не уравнение, неизвестное отсутствует")
+    elif b==0 and a ==0:
+           print("Действительных корней нет")            
+    
     sys.exit(0)
     
 
