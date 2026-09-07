@@ -3,20 +3,19 @@ import math
 
 
 def solve():
-
     args = sys.argv
 
-    a = float(args[2])
-    b = float(args[3])
-    c = float(args[4])
-    if a > 10000 or a < -10000 or b > 10000 or b < -10000 or c > 10000 or c < -10000:
-        
-        print("fgf")
-        break
+    a = int(input("Введите A: "))
+    b = int(input("Введите B: "))
+    c = int(input("Введите C: "))
+    if abs(a) > 10000 or abs(b) > 10000 or abs(c) > 10000:
+        print("ОШИБКА: значение вне допустимого диапазона")
+        sys.exit(1)
+    
 
     D = (b**2) - (4*a*c)
 
-    if D > 0 and a !=0 and b != 0 :
+    if D > 0 and a !=0 and b != 0:
         x1 = (-b + D**(1/2))/(2*a)
         x2 = (-b - D**(1/2))/(2*a)
         print (x1)
@@ -36,21 +35,26 @@ def solve():
         print (x)
 
 
-    
-
-    
-
-def print_help():
-    print("pomogite pajalusta")
 
 def main():
     args = len(sys.argv) - 1
     
     if args == 0 or sys.argv[1] == "--help":
-        print_help()
+        print("pomogite pajalusta")
         sys.exit(0)
+    elif sys.argv[1] != "solve":
+        print("Неизвестная команда")
+        sys.exit(1)
     elif sys.argv[1] == "solve":
         solve()
+        sys.exit(0)
+    elif sys.argv[7]:
+        if sys.argv[2] != "-a" and sys.argv[4] != "-b" and sys.argv[6] != "-c":
+            print("Неизвестный параметр")
+            sys.exit(1)
+
+    
+
 
 
 main()
