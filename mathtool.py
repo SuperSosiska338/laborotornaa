@@ -4,11 +4,11 @@ import math
 #(Ax**2)+(Bx) + С= 0
 
 def solve():
-    a = 2
+    a = 1
     b = 4
     c = 2
 
-    D = b**2 - 4*a*c
+    D = (b**2) - (4*a*c)
 
     if D > 0:
         x1 = (-b + D**(1/2))/(2*a)
@@ -34,6 +34,7 @@ def main():
     if args == 0 or sys.argv[1] == "--help":
         print_help()
         sys.exit(0)
-    if sys.args[1] == "solve"
+    elif sys.argv[1] == "solve":
+        solve()
 
 main()
