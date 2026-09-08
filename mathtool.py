@@ -7,13 +7,7 @@ def main():
     
     if args == 0 or sys.argv[1] == "--help":
         print(
-"mathtool — решение уравнений вида A*x^2 + B*x + C = 0                            "
-"Использование:                                                                   "
-"python mathtool.py                         вывод справки                         "
-"python mathtool.py --help                  вывод справки                         "
-"python mathtool.py solve                   ввод коэффициентов с клавиатуры       "
-"python mathtool.py solve -a 1 -b -3 -c 2   решение с заданными коэффициентами    "
-"Коэффициенты A, B, C — целые числа, по модулю не превышающие 10000.              "
+"mathtool — решение уравнений вида A*x^2 + B*x + C = 0 \nИспользование:\npython mathtool.py -> вывод справки\npython mathtool.py --help -> вывод справки\npython mathtool.py solve -> ввод коэффициентов с клавиатуры\npython mathtool.py solve -a 1 -b -3 -c 2 -> решение с заданными коэффициентами\nКоэффициенты A, B, C — целые числа, по модулю не превышающие 10000."
 )
         sys.exit(0)
     elif sys.argv[1] != "solve":
@@ -40,13 +34,14 @@ def main():
         c = int(c1)
     except ValueError:
            print("ОШИБКА: коэффициент не является целым числом")
-            
-
-    D = (b**2) - (4*a*c)
+           sys.exit(1)
 
     if abs(a) > 10000 or abs(b) > 10000 or abs(c) > 10000:
             print("ОШИБКА: значение вне допустимого диапазона")
             sys.exit(1)
+
+    D = (b**2) - (4*a*c)
+    print (f"Дискриминант: {D:.3f}")
             
         
     if D > 0 and a !=0 and b != 0:
@@ -67,12 +62,12 @@ def main():
                 print("Уравнение линейное")  
     elif b == 0 and c > 0:
                 print ("Действительных корней нет")
-    elif b == 0 and c <= 0:
+    elif b == 0 and c < 0:
                 x = (-c/a)**(1/2)
                 print (f"x = {x:.3f}")
                 print("Уравнение квадратное")
     elif b==0 and a ==0:
-           print("Действительных корней нет")            
+           print("ОШИБКА: это не уравнение, неизвестное отсутствует")       
     
     sys.exit(0)
     
