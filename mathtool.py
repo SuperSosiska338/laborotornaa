@@ -4,6 +4,8 @@ import math
 
 def main():
     args = len(sys.argv) - 1
+
+    MAX_VALUE = 10000
     
     if args == 0 or sys.argv[1] == "--help":
         print(
@@ -11,7 +13,7 @@ def main():
 )
         sys.exit(0)
     elif sys.argv[1] != "solve":
-        print("Неизвестная команда")
+        print("Неизвестная команда", file=sys.stderr)
         sys.exit(1)
     elif sys.argv[1] == "solve" and len(sys.argv) == 2:
         a1 = str(input("Введите A: "))
@@ -19,13 +21,13 @@ def main():
         c1 = str(input("Введите C: "))
     elif len(sys.argv) == 8:
         if sys.argv[2] != "-a" and sys.argv[4] != "-b" and sys.argv[6] != "-c":
-            print("Неизвестный параметр")
+            print("Неизвестный параметр", file=sys.stderr)
             sys.exit(1)
         a1=sys.argv[3]
         b1=sys.argv[5]
         c1=sys.argv[7]
     else:
-        print("Неверный набор параметров") 
+        print("Неверный набор параметров", file=sys.stderr) 
         sys.exit(1) 
 
     try:
@@ -33,11 +35,11 @@ def main():
         b = int(b1)
         c = int(c1)
     except ValueError:
-           print("ОШИБКА: коэффициент не является целым числом")
+           print("ОШИБКА: коэффициент не является целым числом", file=sys.stderr)
            sys.exit(1)
 
-    if abs(a) > 10000 or abs(b) > 10000 or abs(c) > 10000:
-            print("ОШИБКА: значение вне допустимого диапазона")
+    if abs(a) > MAX_VALUE or abs(b) > MAX_VALUE or abs(c) > MAX_VALUE:
+            print("ОШИБКА: значение вне допустимого диапазона", file=sys.stderr)
             sys.exit(1)
 
     if a == 0:
@@ -46,7 +48,7 @@ def main():
               x = -c / b
               print (f"x = {x:.3f}")
        else:
-              print("ОШИБКА: это не уравнение, неизвестное отсутствует")
+              print("ОШИБКА: это не уравнение, неизвестное отсутствует", file=sys.stderr)
               sys.exit(1)
     else:
         print ("Уравнение квадратное")
@@ -62,7 +64,8 @@ def main():
                x = -b / (2*a)
                print (f"x = {x:.3f}")
         else:
-               print("Действительных корней нет")           
+               print("Действительных корней нет")
+                      
     
     sys.exit(0)
     
