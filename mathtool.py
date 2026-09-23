@@ -1,37 +1,13 @@
 import sys
 import math
+import cli
 from calc import equation
 
 
-def main():
-    args = len(sys.argv) - 1
+def print_solve():
+    a, b, c = args.a, args.b, args.c
 
-    if args == 0 or sys.argv[1] == "--help":
-        print(
-"mathtool — решение уравнений вида A*x^2 + B*x + C = 0 \nИспользование:\npython mathtool.py -> вывод справки\npython mathtool.py --help -> вывод справки\npython mathtool.py solve -> ввод коэффициентов с клавиатуры\npython mathtool.py solve -a 1 -b -3 -c 2 -> решение с заданными коэффициентами\nКоэффициенты A, B, C — целые числа, по модулю не превышающие 10000."
-)
-        sys.exit(0)
-    elif sys.argv[1] != "solve":
-        print("Неизвестная команда", file=sys.stderr)
-        sys.exit(1)
-    elif sys.argv[1] == "solve" and len(sys.argv) == 2:
-        a = str(input("Введите A: "))
-        b = str(input("Введите B: "))
-        c = str(input("Введите C: "))
-    elif len(sys.argv) == 8:
-        if sys.argv[2] != "-a" and sys.argv[4] != "-b" and sys.argv[6] != "-c":
-            print("Неизвестный параметр", file=sys.stderr)
-            sys.exit(1)
-        a=sys.argv[3]
-        b=sys.argv[5]
-        c=sys.argv[7]
-    else:
-        print("Неверный набор параметров", file=sys.stderr) 
-        sys.exit(1) 
-
-    
-
-    kind, d, roots = equation.solve(0, 0, 0)
+    kind, d, roots = equation.solve(a, b, c)
 
     if kind == "Линейное":
         print("Уравнение линейное")
@@ -47,6 +23,10 @@ def main():
         else:
             print("Действительных корней нет")
 
+def main():
+    command = cli.commandos()
+
+
 
 
     
@@ -54,4 +34,5 @@ def main():
     sys.exit(0)
 
 
-main()
+    if __name__ == "__main__":
+     sys.exit(main(sys.argv[1:]))
