@@ -1,3 +1,5 @@
+import sys
+
 MAX_VALUE = 10000
 
 def solve(a, b, c):
@@ -33,3 +35,4 @@ def ogr(a, b, c):
 
         if a == 0 & b == 0:
                     raise ValueError("ОШИБКА: это не уравнение, неизвестное отсутствует")
+                    sys.exit(1)
