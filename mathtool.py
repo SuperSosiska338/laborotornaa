@@ -22,17 +22,23 @@ def print_solve():
             print(f"x = {roots[0]:.3f}")
         else:
             print("Действительных корней нет")
+    return 1
 
-def main():
-    command = cli.commandos()
+def main(argv):
+   
+  parser = cli.commandos()
+
+  if not argv:
+        parser.print_help()
+        return 0
 
 
 
 
     
                       
-    sys.exit(0)
 
 
-    if __name__ == "__main__":
-     sys.exit(main(sys.argv[1:]))
+
+if __name__ == "__main__":
+    sys.exit(main(sys.argv[1:]))

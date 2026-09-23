@@ -13,5 +13,5 @@ def commandos():
     solveC.add_argument("-b", type=int, help="коэффициент B")
     solveC.add_argument("-c", type=int, help="коэффициент C")
 
-    return command
+    return parser
 
