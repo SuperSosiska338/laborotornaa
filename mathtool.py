@@ -4,7 +4,7 @@ import cli
 from calc import equation
 
 
-def print_solve():
+def print_solve(args):
     a, b, c = args.a, args.b, args.c
 
     kind, d, roots = equation.solve(a, b, c)
@@ -27,11 +27,19 @@ def print_solve():
 def main(argv):
    
   parser = cli.commandos()
+  args = parser.parse_args(argv)
+  
 
-  if not argv:
+  if args.command is None:
         parser.print_help()
         return 0
-
+  try:
+      if args.command == "solve":
+          return print_solve(args)
+  except (ValueError, OSError) as error:
+      print(f"Ошибка:{error}", file=sys.stderr)
+          
+  
 
 
 
