@@ -23,8 +23,8 @@ def commandos():
 
     seriesC.add_argument("--func", required=True, help="Задаёт какой ряд суммировать")
 
-    FUNCargument = series_p.add_mutually_exclusive_group(required=True)
-    FUNCargument.add_add_argument("--terms", type=int, help="Задаёт сколько слагаемых сложить:\nостановка по количеству. Целое от 1 до 10 000")
+    FUNCargument = seriesC.add_mutually_exclusive_group(required=True)
+    FUNCargument.add_argument("--terms", type=int, help="Задаёт сколько слагаемых сложить:\nостановка по количеству. Целое от 1 до 10 000")
     FUNCargument.add_argument("--eps", type=float, help="Задаёт до какой величины слагремого считать:\nостановка по точности. Конечное число: больше нуля и не грубее 0,0001")
 
 

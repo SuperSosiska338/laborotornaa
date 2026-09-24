@@ -93,6 +93,28 @@ def print_stats(args):
               print(f"{podpis}: {result:{form}}")  
     return 0
 
+
+def print_series(args):
+    term, formula_str = series.FORMULAS[args.func]
+
+    if args.terms is not None:
+        if not (1 <= args.terms <= series.MAX_TERMS):
+            raise ValueError("Количество слагаемых вне диапазона")
+        
+        print(formula_str)
+        res = series.summa_by_count(term, args.terms)
+        count = args.terms
+    else:
+        if (not math.isfinite(args.eps) or not (0 < args.eps <= series.MAX_EPS)):
+            raise ValueError("Точность вне диапазона")
+        print(formula_str)
+        res, count = series.summa_by_eps(term, args.eps)
+
+    print(f"Слагаемых: {count}")
+    print(f"Сумма ряда: {res:.4f}")
+    return 0
+
+
 def main(argv):
    
   parser = cli.commandos()
@@ -107,19 +129,13 @@ def main(argv):
           return print_solve(args)
       if args.command == "stats":
           return print_stats(args)
+      if args.command == "series":
+          return print_series(args)
   except (ValueError, OSError) as error:
       print(f"Ошибка:{error}", file=sys.stderr)
 
       
           
-  
-
-
-
-    
-                      
-
-
 
 if __name__ == "__main__":
     sys.exit(main(sys.argv[1:]))
