@@ -36,7 +36,7 @@ def print_solve(args):
             print(f"x = {roots[0]:.3f}")
         else:
             print("Действительных корней нет")
-    return 1
+    return 0
 
 def print_stats(args):
 
@@ -68,6 +68,7 @@ def print_stats(args):
 
     if len(values) > stats.MAX_NUM:
                 raise ValueError("Чисел больше 20")
+
     
 
     number_table = [
@@ -97,6 +98,7 @@ def print_stats(args):
 def print_series(args):
     term, formula_str = series.FORMULAS[args.func]
 
+    
     if args.terms is not None:
         if not (1 <= args.terms <= series.MAX_TERMS):
             raise ValueError("Количество слагаемых вне диапазона")
@@ -155,7 +157,11 @@ def main(argv):
       if args.command == "integrate":
           return print_integration(args)
   except (ValueError, OSError) as error:
-      print(f"Ошибка:{error}", file=sys.stderr)
+      err = str(error)
+      if isinstance(error, OSError):
+            err = "Файл не открывается"
+      print(f"Ошибка:{err}", file=sys.stderr)
+      return 1
 
       
           
