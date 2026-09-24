@@ -39,14 +39,39 @@ def print_solve(args):
     return 1
 
 def print_stats(args):
+    MAX_NUM = 20
+    MAX_ABSNUM = 10000
+
     if args.input:
-        with open(args.input, "r", encoding="utf-8-sig") as numbers:
-           num = numbers.read()
+        with open(args.input, "r", encoding="utf-8-sig") as n:
+           num = n.read()
     else:
         num = sys.stdin.read()
 
+    numders = num.split()
+    if not numders:
+        raise ValueError("Список пуст")
 
-        
+    values = []
+    for number in numders:
+        try:
+            val = float(number)
+        except ValueError:
+            raise ValueError(f"{number} не является числом")
+
+        values.append(val)
+
+    if len(values) > MAX_NUM:
+                raise ValueError("Чисел больше 20")
+    
+    if not math.isfinite(values):
+                raise ValueError("Значение не является конечным")
+    
+    if abs(values) > MAX_ABSNUM:
+                raise ValueError("Значение по модулю больше 10000")
+
+
+
 
 def main(argv):
    
