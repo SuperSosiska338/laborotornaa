@@ -1,7 +1,7 @@
 import sys
 import math
 import cli
-from calc import equation
+from calc import equation, stats, integration, series
 
 
 def print_solve(args):
@@ -59,19 +59,33 @@ def print_stats(args):
         except ValueError:
             raise ValueError(f"{number} не является числом")
 
+        if not math.isfinite(val):
+                       raise ValueError("Значение не является конечным")
+           
+        if abs(val) > MAX_ABSNUM:
+                       raise ValueError("Значение по модулю больше 10000")
+
+
         values.append(val)
 
     if len(values) > MAX_NUM:
                 raise ValueError("Чисел больше 20")
     
-    if not math.isfinite(values):
-                raise ValueError("Значение не является конечным")
-    
-    if abs(values) > MAX_ABSNUM:
-                raise ValueError("Значение по модулю больше 10000")
 
-
-
+    number_table = [
+        ("Количество", len(values), "d"),
+        ("Сумма", stats.summa, ".3f"),
+        ("Срднее арифметическое", stats.srednee, ".3f"),
+        ("Сумма квадратов", stats.summa_kvadratov, ".3f"),
+        ("Среднее квадратическое", stats.srednee_kvadrat, ".3f"),
+        ("Дисперсия", stats.dispersia, ".3f"),
+        ("СКО", stats.SKO, ".3f"),
+        ("Стандартное отклонение", stats.standart_otlonenie, ".3f"),
+        ("Наименьшее", stats.minimum, ".3f"),
+        ("Наибольшее", stats.maximum, ".3f"),
+        ("Положительных", stats.kol_polojitelnih, "d"),
+        ("Отрицательных", stats.kol_otricatelnih, "d"), 
+    ]    
 
 def main(argv):
    
