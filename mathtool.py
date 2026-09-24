@@ -39,8 +39,6 @@ def print_solve(args):
     return 1
 
 def print_stats(args):
-    MAX_NUM = 20
-    MAX_ABSNUM = 10000
 
     if args.input:
         with open(args.input, "r", encoding="utf-8-sig") as n:
@@ -62,13 +60,13 @@ def print_stats(args):
         if not math.isfinite(val):
                        raise ValueError("Значение не является конечным")
            
-        if abs(val) > MAX_ABSNUM:
+        if abs(val) > stats.MAX_ABSNUM:
                        raise ValueError("Значение по модулю больше 10000")
 
 
         values.append(val)
 
-    if len(values) > MAX_NUM:
+    if len(values) > stats.MAX_NUM:
                 raise ValueError("Чисел больше 20")
     
 

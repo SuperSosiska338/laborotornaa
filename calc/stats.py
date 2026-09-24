@@ -1,5 +1,8 @@
 import math
 
+MAX_NUM = 20
+MAX_ABSNUM = 10000
+
 
 def summa(values):
     result = 0

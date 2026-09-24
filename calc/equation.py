@@ -26,11 +26,10 @@ def ogr(a, b, c):
                 c = int(c)
         except ValueError:
                    raise ValueError("Коэффициент не является целым числом")
-                   sys.exit(1)
 
         if a == 0 & b == 0:
                     raise ValueError("Это не уравнение, неизвестное отсутствует")
-                    sys.exit(1)
+
 
         check_max({"A": a, "B": b, "C": c})
 
