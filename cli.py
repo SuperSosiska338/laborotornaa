@@ -31,8 +31,8 @@ def commandos():
     integrateC = subparsers.add_parser("integrate", help="численное интегрирование функции", allow_abbrev=False)
 
     integrateC.add_argument("--func", required=True, help="имя интегрируемой функции")
-    integrateC.add_argument("--from",type=float, required=True,help="нижний предел")
-    integrateC.add_argument("--to", type=float, required=True, help="верхний предел")
+    integrateC.add_argument("--from",type=float, dest="a", required=True, help="нижний предел")
+    integrateC.add_argument("--to", type=float, dest="b", required=True, help="верхний предел")
     integrateC.add_argument("--steps", type=int, required=True, help="количество шагов")
     
     return parser

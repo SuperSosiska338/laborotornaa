@@ -114,6 +114,27 @@ def print_series(args):
     print(f"Сумма ряда: {res:.4f}")
     return 0
 
+def print_integration(args):
+     
+ func, formula_str, low, high, limit = integration.FUNCTIONS[args.func]
+
+ if not math.isfinite(args.a) or not math.isfinite(args.b):
+        raise ValueError("Предел не является конечным числом")
+ if args.a >= args.b:
+        raise ValueError("начальный предел не меньше конечного")
+ if not (1 <= args.steps <= 100000):
+        raise ValueError("Количество шагов вне диапазона")
+ if limit == False:
+        if (args.a <= low or args.a >= high or args.b <= low or args.b >= high):
+            raise ValueError("Предел вне промежутка")
+ else:
+      if (args.a < low or args.a > high or args.b < low or args.b > high):
+            raise ValueError("Предел вне промежутка")
+ print(formula_str)
+
+ result = integration.integrate(func, args.a, args.b, args.steps)
+ print(f"Значение интеграла: {result:.4f}")
+ return 0
 
 def main(argv):
    
@@ -131,6 +152,8 @@ def main(argv):
           return print_stats(args)
       if args.command == "series":
           return print_series(args)
+      if args.command == "integrate":
+          return print_integration(args)
   except (ValueError, OSError) as error:
       print(f"Ошибка:{error}", file=sys.stderr)
 

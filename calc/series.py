@@ -6,9 +6,9 @@ MAX_ITERATIONS = 100000
 
 def sign(n):
     if n % 2:
-        return -1
-    else:
         return 1
+    else:
+        return -1
 
 def s_sqplus(n):
     return sign(n) / (n ** 2 + 1)
