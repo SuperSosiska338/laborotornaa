@@ -73,7 +73,7 @@ def print_stats(args):
     
 
     number_table = [
-        ("Количество", len(values), "d"),
+        ("Количество", len, "d"),
         ("Сумма", stats.summa, ".3f"),
         ("Срднее арифметическое", stats.srednee, ".3f"),
         ("Сумма квадратов", stats.summa_kvadratov, ".3f"),
@@ -85,7 +85,15 @@ def print_stats(args):
         ("Наибольшее", stats.maximum, ".3f"),
         ("Положительных", stats.kol_polojitelnih, "d"),
         ("Отрицательных", stats.kol_otricatelnih, "d"), 
-    ]    
+    ]
+
+    for podpis, func, form in number_table:
+         result = func(values)
+         if result is None:
+              print(f"{podpis}: НЕ СУЩЕСТВУЕТ")
+         else:
+              print(f"{podpis}: {result:{form}}")  
+    return 0
 
 def main(argv):
    
