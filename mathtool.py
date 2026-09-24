@@ -5,9 +5,23 @@ from calc import equation
 
 
 def print_solve(args):
-    a, b, c = args.a, args.b, args.c
 
+    count = sum(x is not None for x in [args.a, args.b, args.c])
+    if count == 0:
+        try:
+            a = int(input("Введите A: "))
+            b = int(input("Введите B: "))
+            c = int(input("Введите C: "))
+        except ValueError:
+
+            raise ValueError("Введённый коэффициент не является целым числом")
+    else:
+        a, b, c = args.a, args.b, args.c
+
+    equation.ogr(a, b, c)
     kind, d, roots = equation.solve(a, b, c)
+
+
 
     if kind == "Линейное":
         print("Уравнение линейное")
@@ -24,6 +38,16 @@ def print_solve(args):
             print("Действительных корней нет")
     return 1
 
+def print_stats(args):
+    if args.input:
+        with open(args.input, "r", encoding="utf-8-sig") as numbers:
+           num = numbers.read()
+    else:
+        num = sys.stdin.read()
+
+
+        
+
 def main(argv):
    
   parser = cli.commandos()
@@ -36,8 +60,12 @@ def main(argv):
   try:
       if args.command == "solve":
           return print_solve(args)
+      if args.command == "stats":
+          return print_stats(args)
   except (ValueError, OSError) as error:
       print(f"Ошибка:{error}", file=sys.stderr)
+
+      
           
   
 

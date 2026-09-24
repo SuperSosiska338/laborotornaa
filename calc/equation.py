@@ -4,7 +4,6 @@ MAX_VALUE = 10000
 
 def solve(a, b, c):
 
-    ogr(a, b, c)
     if a == 0:
             x = -c / b
             return "Линейное", None, [x]
@@ -26,13 +25,17 @@ def ogr(a, b, c):
                 b = int(b)
                 c = int(c)
         except ValueError:
-                   raise ValueError("ОШИБКА: коэффициент не является целым числом")
+                   raise ValueError("Коэффициент не является целым числом")
                    sys.exit(1)
-        
-        if abs(a) > MAX_VALUE or abs(b) > MAX_VALUE or abs(c) > MAX_VALUE:
-                    raise ValueError("ОШИБКА: значение вне допустимого диапазона")
-                    sys.exit(1)
 
         if a == 0 & b == 0:
-                    raise ValueError("ОШИБКА: это не уравнение, неизвестное отсутствует")
+                    raise ValueError("Это не уравнение, неизвестное отсутствует")
                     sys.exit(1)
+
+        check_max({"A": a, "B": b, "C": c})
+
+def check_max(coefficients):
+   for name, value in coefficients.items():
+      if  abs(value) > MAX_VALUE:
+        raise ValueError(f"Коэффициент {name} вне допустимого диапазона")
+      

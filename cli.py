@@ -9,9 +9,15 @@ def commandos():
 
     solveC = subparsers.add_parser("solve", help="Решение уравнения", allow_abbrev=False)
 
-    solveC.add_argument("-a", type=int, help="коэффициент A")
-    solveC.add_argument("-b", type=int, help="коэффициент B")
-    solveC.add_argument("-c", type=int, help="коэффициент C")
+    solveC.add_argument("-a", type=int, help="Коэффициент A")
+    solveC.add_argument("-b", type=int, help="Коэффициент B")
+    solveC.add_argument("-c", type=int, help="Коэффициент C")
+
+    statsC = subparsers.add_parser("stats", help="Читает числа, вычисляет и выводит одиннадцать показателей\nКоличество чисел — не более 20, сами числа вещественные и конечные, по модулю не превышающие 10 000.\nЗначения NaN и бесконечности недопустимы.",
+     allow_abbrev=False)
+
+    statsC.add_argument("--input", help="Задаёт имя файла, из которого читаются числа")
+
 
     return parser
 
