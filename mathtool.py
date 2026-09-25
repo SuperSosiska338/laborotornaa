@@ -13,8 +13,7 @@ def print_solve(args):
             b = int(input("Введите B: "))
             c = int(input("Введите C: "))
         except ValueError:
-
-            raise ValueError("Введённый коэффициент не является целым числом")
+          raise ValueError("Введённый коэффициент не является целым числом")
     else:
         a, b, c = args.a, args.b, args.c
 
@@ -36,7 +35,7 @@ def print_solve(args):
             print(f"x = {roots[0]:.3f}")
         else:
             print("Действительных корней нет")
-    return 0
+
 
 def print_stats(args):
 
@@ -92,8 +91,6 @@ def print_stats(args):
               print(f"{podpis}: НЕ СУЩЕСТВУЕТ")
          else:
               print(f"{podpis}: {result:{form}}")  
-    return 0
-
 
 def print_series(args):
     term, formula_str = series.FORMULAS[args.func]
@@ -114,7 +111,6 @@ def print_series(args):
 
     print(f"Слагаемых: {count}")
     print(f"Сумма ряда: {res:.4f}")
-    return 0
 
 def print_integration(args):
      
@@ -136,7 +132,7 @@ def print_integration(args):
 
  result = integration.integrate(func, args.a, args.b, args.steps)
  print(f"Значение интеграла: {result:.4f}")
- return 0
+
 
 def main(argv):
    
@@ -146,7 +142,7 @@ def main(argv):
 
   if args.command is None:
         parser.print_help()
-        return 0
+
   try:
       if args.command == "solve":
           return print_solve(args)
@@ -162,6 +158,8 @@ def main(argv):
             err = "Файл не открывается"
       print(f"Ошибка:{err}", file=sys.stderr)
       return 1
+
+  return 0
 
       
           
