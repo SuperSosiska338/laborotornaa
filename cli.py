@@ -34,6 +34,23 @@ def commandos():
     integrateC.add_argument("--from",type=float, dest="a", required=True, help="Нижний предел")
     integrateC.add_argument("--to", type=float, dest="b", required=True, help="Верхний предел")
     integrateC.add_argument("--steps", type=int, required=True, help="Количество шагов")
-    
+
+    fillC = subparsers.add_parser("fill", help="Генерация списка случайных чисел", allow_abbrev=False)
+    fillC.add_argument("-c", "--count", type=int, required=True, help="Количество элементов")
+    fillC.add_argument("--min", type=int, default=MIN_VALUE, help="Минимальное значение")
+    fillC.add_argument("--max", type=int, default=MAX_VALUE, help="Максимальное значение")
+    fillC.add_argument("--seed", type=int, default=None, help="Начальное значение генератора")
+    fillC.add_argument("-o", "--output", type=str, default=None, help="Выходной файл")
+
+    sortC = subparsers.add_parser("sort", help="Сортировка массива")
+    sortC.add_argument("-m", "--method", type=str, required=True, choices=["bubble", "selection", "insertion", "counting"], help="Метод сортировки")
+    sortC.add_argument("--order", type=str, default="asc", choices=["asc", "desc"], help="Направление")
+    sortC.add_argument("-i", "--input", type=str, default=None, help="Ввод с клавиатуры")
+    sortC.add_argument("-o", "--output", type=str, default=None, help="Вывод на экран")
+
+    searchC = subparsers.add_parser("search", help="Двоичный поиск элемента")
+    searchC.add_argument("-v", "--value", type=int, required=True, help="Искомое целое число")
+    searchC.add_argument("-i", "--input", type=str, default=None, help="Файл с массивом по возрастанию")
+
     return parser
 
