@@ -43,9 +43,20 @@ def print_stats(args):
         with open(args.input, "r", encoding="utf-8-sig") as n:
            num = n.read()
     else:
-        num = sys.stdin.read()
+        #num = sys.stdin.read()
+        num = []
 
-    numders = num.split()
+    while True:
+        a = input()
+        num.append(a)
+        if a == "":           
+         break
+
+    nums = ""
+    for n in num:
+         nums += n
+     
+    numders = nums.split()
     if not numders:
         raise ValueError("Список пуст")
 
@@ -61,6 +72,8 @@ def print_stats(args):
            
         if abs(val) > stats.MAX_ABSNUM:
                        raise ValueError("Значение по модулю больше 10000")
+
+        
 
 
         values.append(val)
@@ -93,9 +106,13 @@ def print_stats(args):
               print(f"{podpis}: {result:{form}}")  
 
 def print_series(args):
+   # try:
     term, formula_str = series.FORMULAS[args.func]
+   # except:
+      #   raise ValueError("Неверная функция")
 
-    
+   
+
     if args.terms is not None:
         if not (1 <= args.terms <= series.MAX_TERMS):
             raise ValueError("Количество слагаемых вне диапазона")
@@ -152,7 +169,7 @@ def main(argv):
           return print_series(args)
       if args.command == "integrate":
           return print_integration(args)
-  except (ValueError, OSError) as error:
+  except (ValueError, OSError, KeyError) as error:
       err = str(error)
       if isinstance(error, OSError):
             err = "Файл не открывается"
