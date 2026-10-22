@@ -192,6 +192,7 @@ def write_mas(data, file):
         try:
             with open(file, "w", encoding="utf-8") as f:
                 f.write(output)
+                print(f"Записано элементов: {len(data)} в файл {file}")
         except Exception as e:
             raise ValueError(f"ОШИБКА записи в файл: {e}")
     else:
@@ -200,7 +201,7 @@ def write_mas(data, file):
 
 def print_fill(args):
     if not (1 <= args.count <= MAX_COUNT):
-        raise ValueError(f"ОШИБКА: количество элементов вне диапазона 1..{MAX_COUNT}")
+        raise ValueError(f"количество элементов вне диапазона 1..{MAX_COUNT}")
     
     if args.min > args.max:
         raise ValueError("параметр min не может быть больше max")
@@ -233,12 +234,12 @@ def print_sort(args):
     
 def print_search(args):
     if not (-MAX_SEARCH <= args.value <= MAX_SEARCH):
-        raise ValueError(f"ОШИБКА: модуль искомого не больше {MAX_SEARCH}")
+        raise ValueError(f"модуль искомого не больше {MAX_SEARCH}")
 
     data = read_mas(args.input) 
     for i in range(len(data) - 1):
         if data[i] > data[i + 1]:
-            raise ValueError("ОШИБКА: массив не упорядочен по возрастанию")
+            raise ValueError("массив не упорядочен по возрастанию")
     
         
     index = binary_search(data, args.value)
