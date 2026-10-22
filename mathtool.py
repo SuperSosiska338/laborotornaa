@@ -1,6 +1,7 @@
 import sys
 import math
 import cli
+import time
 from calc import equation, stats, integration, series
 from calc.arrays import MIN_VALUE, MAX_VALUE, MAX_COUNT, MAX_SEARCH, fill_full, binary_search
 from calc.sorting import METHODS
@@ -150,57 +151,73 @@ def print_integration(args):
  print(f"Значение интеграла: {result:.4f}")
 
 def read_mas(path):
-    if path:
-        with open(path, "r", encoding="utf-8-sig") as f:
-            text = f.read()
-    else:
-        lines = []
-        while True:
-            try:
-                line = input()
-                if not line.strip():
+    try:
+        if path:
+            with open(path, "r", encoding="utf-8-sig") as f:
+                text = f.read()
+        else:
+            lines = []
+            while True:
+                try:
+                    line = input()
+                    if not line.strip():
+                        break
+                    lines.append(line)
+                except EOFError:
                     break
-                lines.append(line)
-            except EOFError:
-                    break
-        text = " ".join(lines)
+            text = " ".join(lines)
 
-    text_with_spaces = text.replace(',', ' ')
-    words = text_with_spaces.split()
+        text_with_spaces = text.replace(',', ' ')
+        words = text_with_spaces.split()
 
-    replace_words = [int(w) for w in words]
+        replace_words = [int(w) for w in words]
 
-    if not (1 <= len(replace_words) <= MAX_COUNT):
-        raise ValueError("количество элементов вне диапазона")
+        if not (1 <= len(replace_words) <= MAX_COUNT):
+            raise ValueError("количество элементов вне диапазона")
 
-    for x in replace_words:
-        if not (MIN_VALUE <= x <= MAX_VALUE):
-            raise ValueError(f"значение элемента {x} вне диапазона")
+        for x in replace_words:
+            if not (MIN_VALUE <= x <= MAX_VALUE):
+                raise ValueError(f"значение элемента {x} вне диапазона")
     
-    return replace_words
+        return replace_words
+                     
+    except Exception as e:
+        raise ValueError(f"ОШИБКА чтения: {e}")
+    
 
 
 def write_mas(data, file):
     output = " ".join(str(x) for x in data) + "\n"
     if file:
-        with open(file, "w", encoding="utf-8") as f:
-            f.write(output)
+        try:
+            with open(file, "w", encoding="utf-8") as f:
+                f.write(output)
+        except Exception as e:
+            raise ValueError(f"ОШИБКА записи в файл: {e}")
     else:
         sys.stdout.write(output)
 
 
 def print_fill(args):
     if not (1 <= args.count <= MAX_COUNT):
-        raise ValueError("количество элементов вне диапазона")
+        raise ValueError(f"ОШИБКА: количество элементов вне диапазона 1..{MAX_COUNT}")
     
     if args.min > args.max:
         raise ValueError("параметр min не может быть больше max")
     
     if not (MIN_VALUE <= args.min <= MAX_VALUE) or not (MIN_VALUE <= args.max <= MAX_VALUE):
-        raise ValueError(f"границы должны быть внутри {MIN_VALUE} и {MAX_VALUE}")
+        raise ValueError(f"границы должны быть внутри {MIN_VALUE}..{MAX_VALUE}")
 
     data = fill_full(args.count, args.min, args.max, args.seed)
     write_mas(data, args.output)
+
+
+def time_sum(operation_name, operation, parameters):
+    start_time = time.perf_counter()
+    result = operation(*parameters)
+    elapsed_time = time.perf_counter() - start_time
+    print(f"Время операции sort ({operation_name}): {elapsed_time:.6f} с", file=sys.stderr)
+    return result
 
 
 def print_sort(args):
@@ -208,7 +225,7 @@ def print_sort(args):
     method = METHODS[args.method]
     descending = (args.order == "desc")
 
-    method(data, descending)
+    time_sum(args.method, method, [data, descending])
     
     write_mas(data, args.output)
     print("Массив отсортирован")
@@ -234,15 +251,15 @@ def print_search(args):
 
 def main(argv):
    
-  parser = cli.commandos()
-  args = parser.parse_args(argv)
+    parser = cli.commandos()
+    args = parser.parse_args(argv)
   
 
-  if args.command is None:
+    if args.command is None:
         parser.print_help()
 
 
-  handlers = {
+    handlers = {
         "fill": print_fill,
         "sort": print_sort,
         "integrate": print_integration,
@@ -253,20 +270,20 @@ def main(argv):
     }
 
 
-  try:
+    try:
      
-     func = handlers.get(args.command)
-     if func:
-        return func(args)
+        func = handlers.get(args.command)
+        if func:
+            return func(args)
      
-  except (ValueError, OSError, KeyError) as error:
-      err = str(error)
-      if isinstance(error, OSError):
+    except (ValueError, OSError, KeyError) as error:
+        err = str(error)
+        if isinstance(error, OSError):
             err = "Файл не открывается"
-      print(f"Ошибка:{err}", file=sys.stderr)
-      return 1
+        print(f"Ошибка:{err}", file=sys.stderr)
+        return 1
 
-  return 0
+    return 0
 
       
           
