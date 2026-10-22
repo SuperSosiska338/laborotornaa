@@ -2,7 +2,8 @@ import sys
 import math
 import cli
 from calc import equation, stats, integration, series
-from calc.arrays import (MIN_VALUE, MAX_VALUE, MAX_COUNT, MAX_SEARCH, fill_full)
+from calc.arrays import MIN_VALUE, MAX_VALUE, MAX_COUNT, MAX_SEARCH, fill_full
+from calc.sorting import METHODS
 
 
 def print_solve(args):
@@ -73,9 +74,6 @@ def print_stats(args):
            
         if abs(val) > stats.MAX_ABSNUM:
                        raise ValueError("Значение по модулю больше 10000")
-
-        
-
 
         values.append(val)
 
@@ -173,11 +171,11 @@ def read_mas(path):
     replace_words = [int(w) for w in words]
 
     if not (1 <= len(replace_words) <= MAX_COUNT):
-        raise ValueError("ОШИБКА: количество элементов вне диапазона")
+        raise ValueError("количество элементов вне диапазона")
 
     for x in replace_words:
         if not (MIN_VALUE <= x <= MAX_VALUE):
-            raise ValueError(f"ОШИБКА: значение элемента {x} вне диапазона")
+            raise ValueError(f"значение элемента {x} вне диапазона")
     
     return replace_words
 
@@ -193,16 +191,28 @@ def write_mas(data, file):
 
 def print_fill(args):
     if not (1 <= args.count <= MAX_COUNT):
-        raise ValueError("ОШИБКА: количество элементов вне диапазона")
+        raise ValueError("количество элементов вне диапазона")
     
     if args.min > args.max:
-        raise ValueError("ОШИБКА: параметр min не может быть больше max")
+        raise ValueError("параметр min не может быть больше max")
     
     if not (MIN_VALUE <= args.min <= MAX_VALUE) or not (MIN_VALUE <= args.max <= MAX_VALUE):
-        raise ValueError(f"ОШИБКА: границы должны быть внутри {MIN_VALUE} и {MAX_VALUE}")
+        raise ValueError(f"границы должны быть внутри {MIN_VALUE} и {MAX_VALUE}")
 
     data = fill_full(args.count, args.min, args.max, args.seed)
     write_mas(data, args.output)
+
+
+def print_sort(args):
+    data = read_mas(args.input)
+    method = METHODS[args.method]
+    descending = (args.order == "desc")
+
+    method(data, descending)
+    
+    write_mas(data, args.output)
+    print("Массив отсортирован")
+
     
 
 
@@ -215,17 +225,23 @@ def main(argv):
   if args.command is None:
         parser.print_help()
 
+
+  handlers = {
+        "fill": print_fill,
+        "sort": print_sort,
+        "integrate": print_integration,
+        "series": print_series,
+        "stats": print_stats,
+        "solve": print_solve
+    }
+
+
   try:
-      if args.command == "solve":
-          return print_solve(args)
-      if args.command == "stats":
-          return print_stats(args)
-      if args.command == "series":
-          return print_series(args)
-      if args.command == "integrate":
-          return print_integration(args)
-      if args.command == "fill":
-            return print_fill(args)
+     
+     func = handlers.get(args.command)
+     if func:
+        return func(args)
+     
   except (ValueError, OSError, KeyError) as error:
       err = str(error)
       if isinstance(error, OSError):
