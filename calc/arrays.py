@@ -10,3 +10,18 @@ def fill_full(count, low=MIN_VALUE, high=MAX_VALUE, seed=None):
         random.seed(seed)
     data = [random.randint(low, high) for n in range(count)]
     return data
+
+def binary_search(data, target):
+    left = 0
+    right = len(data) - 1
+    
+    while left <= right:
+        middle = (left + right) // 2
+        if data[middle] == target:
+            return middle
+        if data[middle] < target:
+            left = middle + 1
+        else:
+            right = middle - 1
+            
+    return None

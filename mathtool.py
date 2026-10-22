@@ -2,7 +2,7 @@ import sys
 import math
 import cli
 from calc import equation, stats, integration, series
-from calc.arrays import MIN_VALUE, MAX_VALUE, MAX_COUNT, MAX_SEARCH, fill_full
+from calc.arrays import MIN_VALUE, MAX_VALUE, MAX_COUNT, MAX_SEARCH, fill_full, binary_search
 from calc.sorting import METHODS
 
 
@@ -214,7 +214,23 @@ def print_sort(args):
     print("Массив отсортирован")
 
     
+def print_search(args):
+    if not (-MAX_SEARCH <= args.value <= MAX_SEARCH):
+        raise ValueError(f"ОШИБКА: модуль искомого не больше {MAX_SEARCH}")
 
+    data = read_mas(args.input) 
+    for i in range(len(data) - 1):
+        if data[i] > data[i + 1]:
+            raise ValueError("ОШИБКА: массив не упорядочен по возрастанию")
+    
+        
+    index = binary_search(data, args.value)
+    
+    if index is None:
+        raise ValueError(f"Значение {args.value} не найдено.")
+    else:
+        print(f"Значение {args.value} имеет элемент с индексом {index + 1}")
+    
 
 def main(argv):
    
@@ -232,7 +248,8 @@ def main(argv):
         "integrate": print_integration,
         "series": print_series,
         "stats": print_stats,
-        "solve": print_solve
+        "solve": print_solve,
+        "search": print_search
     }
 
 

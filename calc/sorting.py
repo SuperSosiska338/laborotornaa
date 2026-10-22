@@ -38,12 +38,12 @@ def insertion(data, descending=False):
         data[j] = current
     return data
 
-def counting(data, descending=False):
-    counters_size = MAX_VALUE - MIN_VALUE + 1
+def counting(data, descending=False, min = MIN_VALUE, max = MAX_VALUE):
+    counters_size = max - min + 1
     counters = [0] * counters_size
     
     for value in data:
-        counters[value - MIN_VALUE] += 1
+        counters[value - min] += 1
         
     k = 0
     num = list(range(counters_size))
@@ -53,7 +53,7 @@ def counting(data, descending=False):
 
     for index in num:
         for n in range(counters[index]):
-            data[k] = index + MIN_VALUE
+            data[k] = index + min
             k += 1
     return data
 
