@@ -1,0 +1,1 @@
+from calc.sorting import METHODS

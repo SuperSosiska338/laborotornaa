@@ -1,5 +1,5 @@
 import argparse
-from calc.arrays import (MIN_VALUE, MAX_VALUE, MAX_COUNT, MAX_SEARCH)
+from calc.arrays import (MIN_VALUE, MAX_VALUE)
 
 def commandos():
     parser = argparse.ArgumentParser(prog="mathtool", description=
