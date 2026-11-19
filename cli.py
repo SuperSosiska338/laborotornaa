@@ -53,5 +53,15 @@ def commandos():
     searchC.add_argument("-v", "--value", type=int, required=True, help="Искомое целое число")
     searchC.add_argument("-i", "--input", type=str, default=None, help="Файл с массивом по возрастанию")
 
+    selectC = subparsers.add_parser("select", help="Найти k-ю порядковую статистику")
+    selectC.add_argument("-k", "--rank", type=int, required=True, help="Номер статистики (от 1 до N)")
+    selectC.add_argument("-i", "--input", type=str, default=None, help="Файл с исходным массивом")
+    selectC.add_argument("--seed", type=int, default=None, help="Начальное значение генератора")
+
+    shuffleC = subparsers.add_parser("shuffle", help="Перемешать массив (алгоритм Фишера–Йетса)")
+    shuffleC.add_argument("-i", "--input", type=str, default=None, help="Файл с исходным массивом")
+    shuffleC.add_argument("--seed", type=int, default=None, help="Начальное значение генератора")
+    shuffleC.add_argument("-o", "--output", type=str, default=None, help="Файл для записи результата")
+
     return parser
 

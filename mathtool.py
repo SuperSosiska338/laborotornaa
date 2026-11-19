@@ -3,8 +3,9 @@ import math
 import cli
 import time
 from calc import equation, stats, integration, series
-from calc.arrays import MIN_VALUE, MAX_VALUE, MAX_COUNT, MAX_SEARCH, fill_full, binary_search
-from calc.sorting import METHODS
+from calc.arrays import *
+from calc.sorting import *
+from calc.selection import *
 
 
 def print_solve(args):
@@ -250,6 +251,24 @@ def print_search(args):
         print(f"Значение {args.value} имеет элемент с индексом {index + 1}")
     
 
+def print_select(args):
+    data = read_mas(args.input)
+    result = statistika(data, args.rank, seed=args.seed)
+    print(f"Значение порядковой статистики: {result}")
+
+
+def print_shuffle(args):
+    data = read_mas(args.input)
+    shuffle(data, seed=args.seed)
+    if args.output:
+        write_mas(args.output, data)
+        print(f"Записано элементов: {len(data)} в файл {args.output}")
+    else:
+        print(" ".join(map(str, data)))
+        print("Массив перемешан.")
+     
+    
+
 def main(argv):
    
     parser = cli.commandos()
@@ -267,7 +286,9 @@ def main(argv):
         "series": print_series,
         "stats": print_stats,
         "solve": print_solve,
-        "search": print_search
+        "search": print_search,
+        "select": print_select,
+        "shuffle": print_shuffle
     }
 
 

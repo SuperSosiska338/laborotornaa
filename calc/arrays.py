@@ -25,3 +25,9 @@ def binary_search(data, target):
             right = middle - 1
             
     return None
+
+def shuffle(data, seed = False):
+    rng = random.Random(seed)
+    for i in range(len(data) - 1, 0, -1 ):
+        j = rng.randint(0, i)
+        data[i], data[j] = data[j], data[i]
