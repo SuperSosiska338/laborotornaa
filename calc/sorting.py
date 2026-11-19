@@ -5,6 +5,11 @@ def ne_po_poradku(a, b , descending):
         return a < b
     return a > b
 
+def ranshe(a, b , descending):
+    if descending:
+        return a > b
+    return a < b
+
 def bubble(data, descending=False):
     n = len(data)
     for i in range(n - 1):
@@ -58,10 +63,85 @@ def counting(data, descending=False, min = MIN_VALUE, max = MAX_VALUE):
     return data
 
 
+def quick(data, descending=False):
+    uporadochit(data, 0, len(data) - 1, descending)
+
+
+def uporadochit(data, left, right, descending):
+    if left >= right:
+        return
+    opora = data[(left+right) // 2]
+    i = left
+    j = right
+
+    while i <= j:
+        while ranshe(data[i], opora, descending): 
+            i += 1
+        while ranshe(opora, data[j], descending): 
+            j -= 1
+        if i <= j:
+            data[i], data[j] = data[j], data[i]
+            i += 1
+            j -= 1
+    uporadochit(data, left, j, descending)
+    uporadochit(data, i, right, descending)
+
+def merge(data, descending=False):
+    uporadochit_fusion(data, 0, len(data) - 1, descending)
+
+def uporadochit_fusion(data, left, right, descending):
+    if left >= right:
+        return
+    mid = (left+right) // 2
+    uporadochit_fusion(data,left,mid,descending)
+    uporadochit_fusion(data,mid+1,right,descending)
+    slit(data,left,mid,right,descending)
+
+def slit(data,left,mid,right,descending):
+    result = []
+    i = left
+    j = mid+1
+    while i <= mid and j <= right:
+        if ranshe(data[j], data[i], descending):
+            result.append(data[j])
+            j += 1
+        else:
+            result.append(data[i])
+            i += 1
+    result.extend(data[i:mid + 1])
+    result.extend(data[j:right + 1])
+    
+    data[left:right + 1] = result
+
+def proseat(data, i, size, descending):
+    while True:
+        choose = i
+        for c in [2*i+1,2*i+2]:
+            if c < size:
+                if ranshe(data[choose], data[c], descending):
+                    choose = c
+        if choose == i:
+            return
+        data[i], data[choose] = data[choose], data[i]
+        i = choose
+
+
+def heap(data, descending=False):
+    n = len(data)
+    for i in range(n // 2 - 1, -1, -1):
+        proseat(data, i, n, descending)
+    for end in range(n - 1, 0, -1):
+        data[0], data[end] = data[end], data[0]
+        proseat(data, 0, end, descending) 
+
+
 
 METHODS = {
     "bubble": bubble,
     "selection": selection,
     "insertion": insertion,
-    "counting": counting
+    "counting": counting,
+    "quick": quick,
+    "merge": merge, 
+    "heap": heap
     }

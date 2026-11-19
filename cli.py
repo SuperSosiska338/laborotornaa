@@ -44,7 +44,7 @@ def commandos():
     fillC.add_argument("-o", "--output", type=str, default=None, help="Выходной файл")
 
     sortC = subparsers.add_parser("sort", help="Сортировка массива")
-    sortC.add_argument("-m", "--method", type=str, required=True, choices=["bubble", "selection", "insertion", "counting"], help="Метод сортировки")
+    sortC.add_argument("-m", "--method", type=str, required=True, choices=["bubble", "selection", "insertion", "counting","quick", "merge", "heap"], help="Метод сортировки")
     sortC.add_argument("--order", type=str, default="asc", choices=["asc", "desc"], help="Направление")
     sortC.add_argument("-i", "--input", type=str, default=None, help="Ввод с клавиатуры")
     sortC.add_argument("-o", "--output", type=str, default=None, help="Вывод на экран")
