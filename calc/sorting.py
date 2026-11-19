@@ -20,7 +20,7 @@ def bubble(data, descending=False):
                 swap = True
         if not swap:
             break
-    return data
+    return None
 
 def selection(data, descending=False):
     n = len(data)
@@ -30,7 +30,7 @@ def selection(data, descending=False):
             if ne_po_poradku(data[best], data[j], descending):
                 best = j
         data[i], data[best] = data[best], data[i]
-    return data
+    return None
 
 def insertion(data, descending=False):
     n = len(data)
@@ -41,7 +41,7 @@ def insertion(data, descending=False):
             data[j] = data[j - 1]
             j -= 1
         data[j] = current
-    return data
+    return None
 
 def counting(data, descending=False, min = MIN_VALUE, max = MAX_VALUE):
     counters_size = max - min + 1
@@ -60,7 +60,7 @@ def counting(data, descending=False, min = MIN_VALUE, max = MAX_VALUE):
         for n in range(counters[index]):
             data[k] = index + min
             k += 1
-    return data
+    return None
 
 
 def quick(data, descending=False):

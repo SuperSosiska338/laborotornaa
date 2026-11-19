@@ -422,6 +422,23 @@ __________________________________________________________________
 Записано элементов: 1000 в файл sorted.txt
 Массив отсортирован
 
+Команда: python mathtool.py select -k 4 -i selection.txt --seed 1        
+Значение порядковой статистики: 35
+
+Команда: python mathtool.py select -k 0 -i selection.txt                 
+Ошибка:Номер статистики k должен быть от 1 до 9.
+
+Команда: python mathtool.py select -k 10 -i selection.txt
+Ошибка:Номер статистики k должен быть от 1 до 9.
+
+Команда: python mathtool.py select -k abc -i selection.txt
+usage: mathtool select [-h] -k RANK [-i INPUT] [--seed SEED]
+mathtool select: error: argument -k/--rank: invalid int value: 'abc'
+
+Команда: python mathtool.py shuffle -i selection.txt --seed 1 -o shuffled.txt         
+Записано элементов: 9 в файл shuffled.txt
+Массив перемешан.
+
 
 | Кол-во элементов | Метод сортировки | Замер 1  | Замер 2  | Замер 3  | Среднее время |
 |------------------|------------------|----------|----------|----------|---------------|

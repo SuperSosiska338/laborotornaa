@@ -261,11 +261,10 @@ def print_shuffle(args):
     data = read_mas(args.input)
     shuffle(data, seed=args.seed)
     if args.output:
-        write_mas(args.output, data)
-        print(f"Записано элементов: {len(data)} в файл {args.output}")
+        write_mas(data, args.output)
     else:
         print(" ".join(map(str, data)))
-        print("Массив перемешан.")
+    print("Массив перемешан.")
      
     
 
